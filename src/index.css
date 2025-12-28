@@ -1,0 +1,231 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 30% 97%;
+    --foreground: 215 30% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 215 30% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 30% 12%;
+    --primary: 200 90% 48%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 25% 94%;
+    --secondary-foreground: 215 30% 15%;
+    --muted: 210 25% 94%;
+    --muted-foreground: 215 20% 50%;
+    --accent: 168 76% 42%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 25% 88%;
+    --input: 210 25% 88%;
+    --ring: 200 90% 48%;
+    --radius: 0.75rem;
+    --medical-primary: 200 90% 48%;
+    --medical-secondary: 168 76% 42%;
+    --medical-accent: 210 100% 95%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .token-badge {
+    @apply inline-flex items-center justify-center rounded-2xl bg-gradient-to-br from-primary via-primary to-accent px-4 py-2 text-sm font-bold text-white shadow-lg shadow-primary/20 ring-1 ring-white/30 transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-primary/30;
+  }
+
+  .patient-card {
+    @apply relative rounded-3xl border border-white/40 bg-white/60 p-6 shadow-sm backdrop-blur-md transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 hover:border-primary/20 hover:-translate-y-1.5;
+  }
+
+  .status-badge {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-[10px] font-bold tracking-wider uppercase shadow-sm ring-1 ring-inset transition-all duration-300;
+  }
+
+  .stat-card {
+    @apply relative overflow-hidden rounded-3xl border border-white/40 bg-white/60 p-6 shadow-md backdrop-blur-md transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:border-primary/30 hover:-translate-y-2;
+  }
+
+  .glass-card {
+    @apply relative rounded-[2rem] border border-white/50 bg-white/40 backdrop-blur-xl shadow-2xl shadow-primary/5;
+  }
+
+  .animated-gradient {
+    @apply bg-gradient-to-br from-primary via-accent to-primary bg-[length:200%_200%] animate-gradient;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient;
+  }
+
+  .animate-gradient {
+    animation: gradient 6s ease infinite;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+
+  .glass-morphism {
+    @apply bg-white/40 backdrop-blur-xl border border-white/50 shadow-2xl;
+  }
+}
+
+@keyframes gradient {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  33% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+
+  66% {
+    transform: translateY(5px) rotate(-1deg);
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(0, 150, 200, 0.2);
+    transform: scale(1);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(0, 150, 200, 0.4);
+    transform: scale(1.02);
+  }
+}
+
+/* Animated Background */
+.medical-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 50%, #f0fdfa 100%);
+  background-size: 200% 200%;
+  animation: gradient 20s ease infinite;
+}
+
+.medical-background::before {
+  content: '';
+  position: absolute;
+  top: -25%;
+  left: -25%;
+  width: 150%;
+  height: 150%;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(0, 150, 200, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(0, 180, 150, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(0, 120, 220, 0.03) 0%, transparent 60%);
+  filter: blur(60px);
+  animation: float 30s ease-in-out infinite;
+}
+
+.medical-background::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(0, 150, 200, 0.03) 1px, transparent 0);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(to bottom, transparent, black, transparent);
+}
+
+/* Floating medical icons */
+.floating-icons {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.floating-icon {
+  position: absolute;
+  opacity: 0.06;
+  animation: float-icon 20s infinite ease-in-out;
+}
+
+@keyframes float-icon {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(-30px) rotate(5deg);
+  }
+
+  50% {
+    transform: translateY(-60px) rotate(-5deg);
+  }
+
+  75% {
+    transform: translateY(-30px) rotate(5deg);
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--accent));
+}
